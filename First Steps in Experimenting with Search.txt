@@ -1,3 +1,6 @@
+Author: Ari Holtzman
+License: Creative Commons
+
 Disclosure
 
 	The ideas here expressed are obviously my own depiction of my own view of the experiment and the larger context it appears in. Needless to say, your views will necessarily differ from mine almost immediately and that's one of the useful things about creating this document, we'll have a concrete object that will allow us to actively compare our visions and weigh pros and cons of strategies and goals with more than just an abstract silhouette of those strategies and goals. This document is meant as starting point for us to illuminate our first steps and eventual path and nothing more. I attempted to make it as comprehensive as possible, but that should not be taken as a sign of the document's completeness. I wanted all, or as close as possible to all, of the necessary context and ideas to be in a single place so we could a have a unified starting point, but this experiment are necessarily always works in progress until well after they have ceased to be truly experiments and are refined into conclusions.
