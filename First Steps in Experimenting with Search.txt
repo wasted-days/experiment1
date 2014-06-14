@@ -1,0 +1,216 @@
+Disclosure
+
+	The ideas here expressed are obviously my own depiction of my own view of the experiment and the larger context it appears in. Needless to say, your views will necessarily differ from mine almost immediately and that's one of the useful things about creating this document, we'll have a concrete object that will allow us to actively compare our visions and weigh pros and cons of strategies and goals with more than just an abstract silhouette of those strategies and goals. This document is meant as starting point for us to illuminate our first steps and eventual path and nothing more. I attempted to make it as comprehensive as possible, but that should not be taken as a sign of the document's completeness. I wanted all, or as close as possible to all, of the necessary context and ideas to be in a single place so we could a have a unified starting point, but this experiment are necessarily always works in progress until well after they have ceased to be truly experiments and are refined into conclusions.
+	
+	It should also be noted that, although many of these thoughts have been slowly coalescing in my mind, this document did not get the same gentle process. I sat down and wrote it so that we would have something to start, but it did not come together gently nor did it have a deep and refined editing process. It is what it is, a starting point, and hopefully it serves its intention.
+		
+		
+Motivation
+
+	The purpose of all of this is to study the idea of "search": how it happens, how it affects our workflow, how it affects our conclusions and assumptions, how it creates families and canons, and the many other areas it influences. It's something that I think would be good to keep in mind throughout the process that, if we hit a wall with an experiment we have not necessarily hit a wall in the overall goal. The goal is to find interesting things to say about search that we can back up with any kind of evidence we can get: models of search, statistical analysis, observations supported by example, etc.
+		
+	Clearly there are many ways of studying the idea of search: one could talk to the people who do it, look at data of searches, analyze the mechanism that actually computes searches, etc. To me, the idea that seemed both computationally efficient, in terms of geting a lot of data relatively easily and quickly, and semantically useful, in terms of actually meaning something, was modeling the user computationally and seeing what kind of document networks this creates based on various models of users that create connection between documents in various ways: by searching relevant terms, looking for citations to other documents, using backward citation chaining, etc.
+		
+	As just noted, modeling the user computationally has two advantages: computational efficiency and semantic usefulness. These are described more thoroughly below.
+		
+		Computational Efficiency:
+			
+			The first one is easy to explain: it's simply very natural and quick to model someone actually searching relevant terms in a document and seeing what they would find. To do so we simply choose seed documents and search relevant terms based on some function of those terms (which are really n-grams) such as frequency, position in sentence, frequency vs. relative rarity in other documents, etc. We store all the results of these "relevant term searches" and in doing so create a network of documents connected by searches. The very same thing can be done with similar ease when studying citation and backward citation chaining networks. In short, modeling the user this way is easy to program and, because it runs as a program on a computer, will yield millions of results before I can finish microwaving my breakfast oatmeal.
+			
+		Semantic Usefulness:
+			
+			This is almost always the harder property to get at and there is never any assurance of it, only arguments for or against. There is no way to prove any evidence or idea is inherently meaningful and schemes that claim to are the least trustable of all. However, we want only to find evidence and conclusions which are meaningful in a very specific context: that of the world of texts and searching. In this context it is incredibly likely that, whatever evidence we find, it will say something about the way real people interact with search engines because we are literally enacting the same process most people use when doing (at least initial) searching: starting with some seed documents and phrases, searching them in some or other search engine, opening the documents that are ranked highest in the results, and then using those documents as new source material to start the process again. The fact that our model of the user is so close to the real user in easily verifiable ways gives us a strong claim to semantic usefulness i.e. it makes it seem like the evidence we find says something real and strong about the real world. The other thing that is important is a slight twist on the fact that our model is very accurate to the real user: it's the fact that there aren't that many other ways to search for documents in a search a engine. Given a search engine and some starting source material in order to get anywhere the user <i>must</i> enter in some phrases and open new documents. The only choice the user has is which phrases and which documents. While which phrases the user searches by and which documents the user opens are things that must be considered in more depth as we continue the experiment, it is almost certain that there is a strong connection between the frequency of phrases used in documents and those the user searches and the ranking of documents in the search results and those the user clicks on, though obviously these are not perfect predictors. Still I would be very curious to see an argument that these variables bear no weight in the user's decision making.
+				
+	Thus, with all these benefits in tow, we have decided to endeavor to model the user computationally in search of what search means.
+		
+
+Purpose
+
+	Our motivation is to find out how the user interacts with search and what that relationships creates (or destroys?). But what is exactly is it we are hoping to get from this experiment? Fortunately the answer to this is more easily described than our motivation: we are hoping to get some kind of relatively low resolution description of what the user's "search landscape" looks like. The kind of questions we are hoping to begin to answer go something like this:
+	
+		Given some starting documents, where is the user likely to go?
+		Where is the user not likely to go?
+		How much do different thresholds of what documents the user is willing to open and what phrases the user is willing to search (ranked by some notion of relevancy which can be computed a number of different ways yielding different results) affect the user's search landscape?
+		How much does searching more help a user? Does he run into loops and get stuck in families which always lead to the other documents in the family?
+		How interconnected are different groups of documents?
+		How connected by search are documents that we often think of in groups (the new testament and the old testament, papers by the same scientist, articles from the same journal, etc.)?
+		Do citation networks have anything to do with search networks? What about backwards citation chaining?
+		Do authors tend to stick to certain "search families" of documents, or can they have a presence in more than one family of documents?
+		
+	Obviously there are many, many more questions. These days, search (especially on Google) is how most people find new data most of the time, so what we are really talking about when we talk about the user's search landscape is the landscape on which the user expands his set of ideas; the user's search landscape is literally the user's knowledge frontier.
+	
+	With this in the back of our mind, then, we hope to model the user and thus start creating some sort of map and perhaps even a fledgling taxonomy of the user's search landscape. In doing so we hope to derive a couple conclusions, but the most important thing at this stage is to get some sort of picture of what the search landscape is like so that we can ask more interesting, relevant, and precise questions that will yield even richer research.
+	
+	
+Hypotheses
+
+	It is important in the scientific method to have hypotheses for many reasons. However, this is an exploratory venture and one that is still in very new terrain so I reduce all these reasons to one for our purposes: guidance. Having hypotheses helps us see what we want to try next, what we have already achieved, and always creates more hypotheses as ideas are proven or disproven. Below are a few of my own hypotheses, I'm sure the rest of you will have many more to add that get to the heart of similar ideas and also very different ones.
+	
+		1. There are families of documents in which it requires a relatively short path to get from any one document to another document in the family (say, no more than five steps).
+		
+		2. These families get more or less cut off from the rest of the world when the threshold for the user's desire to search is set to a certain value.
+		
+		3. To a large extent, page ranking actually determines these families more than actual similarity. For instance, I think Shannon's "A Mathematical Theory of Information" is incredibly related to a bunch of books in epistemology, but searching is not likely to get you from one to the other. The contrapositive of this is the Harriet Beecher Stowe's "Uncle Tom's Cabin" is very likely to get you a book on cabin-building but these are really not related at all.
+		
+		4. Families will usually be composed of between fifteen and sixty documents.
+		
+		5. The function we choose to connect documents with (e.g. citation, search relevancy, backward citation chaining) will actually change the graph very little, on average changing less than 20% of connections of documents that remain and less than 10% of documents that do or do not get included in the graph.
+		
+
+General Execution
+		
+	The model we are going to use for the user is very simple and extensible. The simplicity yields computational efficiency and the extensibility allows us to model almost any kind of search engine user. In this section, before getting down to the slightly grittier computational details, I wanted to express the data and active objects that compose our model of the universe. There are four types of data objects and three types of active objects, making for an exceedingly simple to describe but very rich and flexible model.
+	
+	Data Objects:
+	
+		There are four kinds of data objects: Documents and Connections, the ones we store, and Requests and Results, the ones we use to actually enact the search.
+	
+		Documents
+			
+			Documents are composed of the text of whatever search result we get, the title of the document on the search engine, the date of publication, and whatever else we feel the need to include. We should create a list of what elements we would like the "minimal document" to always, always have and then request that people extending our work include at least those elements so we can use whatever data they glean as well. The things that immediately occur to me as being useful are: hyperlink to the database's storage of that article, text of the article, name of author, data of publications,  media published in, journal of publication (if available), works cited in-line, works cited in bibliography, title of the article in search engine (if available), location of publication, and category in search engine (e.g. History,  Literature, 19th century Italian poetes, etc.) (if available). Obviously this is something that should be discussed more thoroughly.
+		
+		Connections
+		
+			Connections are composed of links to an origin document and a destination document. In addition connections should contain some metadata including the type of connection that is being described (citation, search, etc.), metadata on that connection such as the search that connected the two documents, and whatever else we think would be good to have. Once again we should create a "minimal connection" model that we request everyone to at least meet the requirements of. Certainly all connections should have an origin document, a destination, document, and the type of connection. For connections based on searches there should also be whatever metadata the search had including the literal text of the search, the blurb given for the destination article, and whatever other metadata the search engine gives. Obviously what a connection should include is open to change and refinement, but having this as starting point gives us somewhere to push off of. I also think it would be interesting to discuss a model of things where we include phrases as documents as well because certain phrases (New Historicism, Deconstruction, Gothic) have document-like presence and it would be interesting to see where they fit in the graph. Finally, you'll note that I've left connection strength out, as I don't think it should be a data component of the connection but a function of all the data stored in the connection. This has all the same properties as storing the strength as data except that by simply changing the function in a given model, we can immediately change how every connection is interpreted. There are some computational efficiency concerns with making connection strength a function, but these can be easily fixed with caching, a fix I can explain in more detail as it becomes relevant.
+		
+		Note that these two objects are actually just a subset of RDF, we have simply made subject and object the same. Thus, it will be very easy for us to store our data in RDF format, in fact we will be doing so without even trying.
+		
+		The other two data objects are used by the User and the Engine (two of the active objects) to actually enact the process of search.
+		
+		Requests
+				
+			This is a very simple data object which can be described completely by the following data: the search engine being used, the options inputed on the search engine (which are, of course, engine specific), and the results given including links to the documents found, their title, the blurb which is usually shown to summarize the document, and whatever else the search engine includes. These three properties compose the model of the "minimal request" we should ask others to use if they expand from our project. It would likely behoove us to look at myriad of search engines and find what options and results are always or almost always given so that we can create some requirements for what meta-data requests should always have and how they should be formatted so that we can use other people's data and also have a standard for ourselves.
+				
+		Results
+			
+			This is also a very simply object and is simply composed of links to the documents that the search engines outputs, their titles, the summary given for them, and whatever other metadata the search engine outputs. Once again, this composes the required section of metadata and also completely describes the Result object, but we should do some more research into how results are usually handed out by a search engine and create a more specific format for how that metadata should be stored so that we can use other people's data and so that we're not always changing our own data model.
+				
+	Active Objects:
+	
+		There are three active objects in our model the Engine (which is representative of the search engine being use), the Driver, and the User. The Engine acts exactly as you think it would, giving document rankings and Documents according to requests made by the User. The Driver manages the User, asking it to execute and asking it to stop when appropriate. The User, in turn, acts as you think a real User would act searching, requesting documents, and searching again until internal variables tell it to execute or the Driver kicks it off the line of execution for taking too much time or resources.
+		
+		In the actual computation it would likely be better to have only one of these objects in existence at a time. Using multiple search engines can simply be represented as an option on the Engine and this model simplifies our approach. The Driver, which is what manages the User objects and controls the flow of the program, can do any operation on the Users by itself and thus has no need for other Drivers. Furthermore, we may want to model many different Users but using one at a time will allow us not have to worry about concurrency and the program has small enough overhead that if we want to run many Users at once to speed things up we can just create a SuperDriver that manages the Drivers themselves. 
+		
+		User
+		
+			The User object does exactly three things: it makes requests of the Engine, it receives results from the Engine, and it opens documents. As it does this the User records all the Documents it encounters and the connections between them in whatever storage format is deemed most useful. Note that I don't think anything else should be specified about the User, because this is actually where we should do almost all of our experimenting (this and the Connection object). If we want the User to search by word frequency we can have one that does that, if want the User to create a citation network we simply have have it pull up documents by citation, and if we want the User to search randomly from set of words we can have it do that as well. Leaving the User open to modification gives us a lot space for interesting experimentation. The one thing that it might be good to require of the User we design and the User objects others expanding off of our project might use is for the User to keep track of its history so that we can actually plot the path of the User over its search network. As already noted, there are only three kinds of actions the User can take (and we might include a fourth one for any internal processing the User does); since there are so few possibilities keeping track of the User's actions should be easy.
+		
+		Engine
+		
+			This is the object we don't really control, the Engine. In our program, we'll have to make some kind of thin wrapper class that takes Requests and actually interacts with the internet, but the idea should be very simple: the Engine represents one or a number of search Engines and allows the User object to make Requests and get Results. Obviously different search engines work differently but it is <b>VERY IMPORTANT</b> that we standardize the way Requests are made and Results are received so that we can use any programs that build off of our work. This is done easily with the infrastructure we have already built for ourselves: the Engine should accept Request objects and hand back Result objects, any differences must be included in the metadata tied to these objects, but they must still encompass our model of "minimal requests" and "minimal results" so that we can use a program someone else has written under this same framework
+			
+		Driver
+		
+			The driver object is very simple and is actually more of an implementation detail than a part of our universe. The important thing is that the Driver object runs Users and routes their output somewhere useful and MOST IMPORTANT OF ALL can stop the User if they refuse to stop themselves because of some bug in our coding. All the Driver object does is ask a number of Users to run based on the paramaters handed to it. 
+						
+	Those are the objects that define the model we will use. Their interaction is incredibly simple. The main program starts a Driver with certain parameters, which runs one or many User objects with whatever parameter a User object chooses to accept. Based on these paramaters the User object makes Requests and and gets Results from the Engine, all the while recording the network of Documents and Connections somewhere. When the User program decides to quit or the Driver kills it, the User's run is over and the data is harvested from wherever the User was writing to.
+	
+	You may have noticed that this leaves how to actually compute these things completely open. Separating these two ideas gives us and anyone building off of us much more flexibility; no matter what language or process someone uses to create the model above, we would be able to analyze what it means the same way we would analyze our own data. But in order to proceed with the experiment we must start with some method of technical execution, which is precisely what is described below.
+	
+
+Technical Execution
+
+	There are two parts of technical execution that the general execution left undescribed: computation (how we're going to actually represent these things in a program) and data storage (how we're going to represent our results in a file).
+	
+	Computation
+	
+		The computation side of things is actually very easy to describe and enact because the model was designed to be represented very easily by a program, especially in object-oriented programming languages. Because of ease of use, general fluency of our members, vast number of libraries, and ease of creating our own library our project has decided to use Python. The rest of the computational model is described with this in mind, but can be easily ported to any other language (even non-object-oriented ones).
+		
+		Enacting our model in Python is very easy. The first step is to create a library with classes for Document, Connection, Request, Result, User, Engine, and Driver. Any implementation specific details that are nonetheless requirements, such as how Engine pulls requests or basically all of how User works, get put in abstract methods. Any required variables get added to the class and will thus be present in anyone's specific implementation.
+		
+		For instance, our first, specific, very bare-bones implementation could be created as follows:
+		
+			Document: just contains the html file JSTOR hands us.
+			
+			Connection: has an html link to the origin document, the destination document, the phrase that connected them by search, and the rank in the search the destination document was at.
+			
+			Request: just a string to be searched in JSTOR.
+			
+			Result: just list of html links to different documents cut off at, say, twenty links.
+			
+			User: starts with a seed document, makes requests from Engine that are just words that occur with high frequency, records everything in XML using RDF to describe connections, stops after ten thousand documents.
+			
+			Engine: uses Selenium to make requests from JSTOR and find the links it gives us.
+			
+			Driver: simply runs a single User we hand it.
+			
+		Obviously this implementation leaves quite a lot to be desired, but the point is the model can be this easy and none of the programming described in any of the steps is especially hard now that we've broken down the project into manageable pieces. Furthermore, it will be very easy and natural to extend this foundation as much as we please.
+	
+	Data Storage
+	
+		This is an issue that we will have to think about a lot as we go forward but most of the problems are not foreseeable until we step into the mud and play around with the data, noting what's easy to do and what isn't. It seems clear that we should use RDF, especially since the way we describe data fits into that scheme naturally. Let me make two technical suggestions and leave it at that for now: 1) we should store the RDF relationships in the already created XML standard for RDF for ease of use and sharing (this was pretty obvious, just thought I'd note it for completeness) and 2) we should, in addition to storing things in RDF sort connections primarily by origin node and then secondarily by destination node so that conversion to a graph will be more efficient if we ever need to convert our data.
+		
+		We're in a funny (but classic) position where our basic data storage needs are obvious but our specific data storage needs are completely nebulous. We need to store documents and connections. The best way to do that probably won't become clear until we've done some experimenting and since this isn't any kind of high-risk situation getting our hands dirty with real experiments seems like a perfect first step.
+				
+		
+Result Execution
+
+	The question that comes up, then, is how will we explain and analyze our results? We'll have a better answer (or maybe a few better answers) when we actually have any results, but it seems like a good idea to just start considering how we would explain our results as this might help us decide how to store our data and even what experiments to focus on. It seems to me there are three ways we can explain our ideas: visually, numerically, and textually. Obviously we'll want a combination of these approaches but I'll approach them individually because combining them is an art that depends heavily on the results themselves, which we haven't produced yet. This is by no means a guide or description of what we will or should do, but more of a record of what we have thought of so far.
+	
+	Visual Analysis
+	
+		This is obviously where the big impact is and is usually the easiest way to explain general ideas to the layman. There are a lot of interesting things to do with visual analysis and also a lot of pretty pictures that are completely ineffectual. We should research what others have done and see if we can adapt them but also consider novel ways of using visual metaphors because we are trying to describe a lot of data at once, a task that is always difficult to accomplish. Below is a list of ideas we have had for how to visually analyze our data.
+		
+			Graphs
+				A regular network graph with thicker and thinner connections and/or smaller or larger nodes.
+				A series of different graphs with different thresholds for what counts as a connection.
+				A series of graphs of different connection types, or perhaps overlaid graphs with different colored or patterned connections.
+				A network graph but the nodes are plotted over axes such as time and popularity.
+				A network graph where node sizes indicate metadata about the document such as popularity.
+			Document Representation
+				A document annotated so that one can see all the connections created in a session i.e. each phrase that linked the document to other documents in our graph has annotations that show where this phrase leads others to.
+				
+		Obviously there's a lot of room to expand, especially to representations other than graphs. Coming up with new representations for data is always a very difficult creative act so we should keep something running in the back of our minds thinking of new ways of showing the results we'll be getting.
+		
+	Numerical Analysis
+	
+		This is something that I don't think we've talked about at all (in relation to the Search project, of course), but which we should really begin considering as it will give us something concrete to point to when we try make arguments about our results. I have listed some of the ideas that come to mind below, but they are just the tip of the iceberg in terms of what we can and should do.
+		
+			Make various definitions of "families" of documents and count the number of families in network and try to classify what they represent.
+			Make various classifications of connections and see if certain documents or families of documents are prone to certain type of connections.
+			Take averages over a network on connection strength, type of connection, number of connections, etc.
+			Note variance in these averages and see if the variance follows patterns based on the types of documents, types of connections, etc.
+			Fiddle around with user paramaters and note how different types of Users's network graphs vary.
+		
+		Also, numerically describing properties of graphs is one of the most popular subjects in mathematics and has been for years. We should do some research to see how other people try to analyze graphs as tens of thousands of people have thought about this question before us.
+		
+	Written Analysis
+	
+		Visual analysis is sexy and numerical analysis is concrete but at the end of the day we're going to make our real arguments verbally, in text. Obviously, we won't know what we have to say until we have results and we've all been practicing writing for decades, so there's not much point about considering the many flavors of rhetoric since, being in the Digital Humanities, we all think about these things constantly. The one thing I do think would be useful is beginning to think about our vocabulary. We've already begun to develop a vocabulary for the ideas implicit in search and in this document I have tried to split up the components of our experiment into concrete and named entities that we can talk about easily and precisely, but there are lots of ideas (such as how strong the connection between two documents and the classification of such connections) that we still struggle to describe when we're talking to each other; it will only get harder to describe such things when we are talking to strangers.
+		
+		My suggestion is that we all do the following. As the ideas in the back of our head coalesce, we should all try to write them down as much as possible and thus develop a style of expression that makes it easy to express our ideas about search. Once one of us has found a phrase or way of stating a thing that he likes, he   should write it down on a Google document all of us can see so that we can all begin to use the same vocabulary. When we talk to each other and have trouble explaining an idea, we should make sure it gets explained and once everyone has understood it talk about how we should refer to such an idea and immediately write it down on a Google doc all of us can see for later reference. Finally, as we begin to get results, we should write some analysis about them immediately, and then again when we have results that shed evidence on old results so that we can further develop our ideas in the vocabulary we continue to expand.
+		
+		Obviously this is all just preliminary thinking, but I think it will be very helpful if by the time we have enough results and infrastructure to believe we can get people to take us seriously we also have a level of familiarity describing the concepts we'll want to communicate.
+		
+	When we really want to communicate a description of the process and results of our project we'll need to use all of these. How that happens will be much more clear once we actually have something to describe and an audience to describe it to. Interweaving these three elements will make us both more accessible to a wider audience and will make our project very attractive because we will be able to make an argument and look good doing it.
+	
+
+Next Steps
+
+	Once we have built the structure described in this document (obviously our vision will be changed as we go, but it seems likely we will at least build something similar to the structure described in this document), where should we go from there? Once again, this question will be more concrete once we have results, but it might not be any easier to answer for that concreteness so it seems wise to start considering it now. The first thing that comes to mind is to begin to play around with the User object embedding it with randomness and preference for a certain type of result and then running many, many simulations of different types of Users and seeing how the results compare. Another interesting thing would be, as was suggested in a previous meeting, to compare the connections we find in documents to the suggestions search engines give. Furthermore, playing around with what a connection means and how its strength is determined has a lot of opportunity for exploration. Connection strength could be a function of document popularity, frequency of the connecting phrase in either of the two documents, document length, search engine ranking, search engine's document summary relevancy, and a load of other variables. There are many other ways to modify this experiment in order to look at different angles of search and we should start a list of all the things we want to try once it's up and running.
+	
+	
+What We Could Use Others For
+
+	First of all, it seems to me that it is up to us to create the library which, along with some documentation which has been started here, will serve as a base for anyone who helps us. If we try to outsource the first steps the likeliness of people not quite understanding what we're trying to do and doing something totally different are so high and the payoff from such an error so low that it doesn't seem worth it. With that in mind, we should try to complete the first steps as soon as possible and then see where we can go because once we have completed the first steps there will be a lot more viable options than there are now.
+	
+	Once we have completed a bare bones library and documentation our ideas, there seem to be three things we could use other people for: computation, analysis, and ideas.
+	
+		Computation
+		
+			 Once we have the bare bones library complete if we can get people to enact experiments we would like to do, create interfaces to search engines we want to explore, experiment with their own ideas about how to create interesting networks, and whatever else people choose to do then we can use the data they gain to think about the ideas of search as a whole. As long as they use our library their data will almost certainly be relevant to our research and if we can get people to write configurable enough code that we can reappropriate it for our own use that will be an added boon. Once we have the bare bone structure up we may have experiments we actively want other people to create and then we can ask them to do that, but until then I don't think there's much other computer scientists can do for us, except maybe critique our design. Critique could be useful, but it's simple enough to design this library and I think starting with something concrete now and getting a feel for the problem will be its own benefit, even if we don't end up fully pursuing this experiment.
+		
+		Analysis
+		
+			Once we have data, if we can find other people to say things about it, even things we disagree with them about, we'll be guided into looking at the data from different angles and we'll be forced into more precisely defining what exactly the point we're trying to make is. From what other people write, we'll see different arguments about what our experiments mean and people love to criticize so I'm sure we can get some of this. If, however, we can get anyone to do visual or numerical analysis I think it would be incredibly helpful. Coming up with interesting and useful visual displays of information is always difficult and any new ideas someone might have are a resource that should not be left untapped. As for numerical analysis, there many people who have studied deep mathematics far longer than any of us have, and whatever they could say about our data or suggestions they could make on what to look at in our data could be incredibly useful and may save us a lot of time.
+			
+		Ideas
+		
+			Finally, after playing around with the parameters of this model I'm sure we will begin to feel constrained by it; that's simply what happens with every new toy. If we can find people to begin thinking about where else we could go, what other experiments could shed light on these experiments or on the ideas of search I'm sure the "outside view" would be very helpful in making us think past the experiments we're already doing into what we could expand into or what completely different experiments would shed light on similar ideas.
+			
+	Clearly these are all things we should be doing as well, and this list is useful as a reminder for us as well, but I include it here so that when we get someone interested in what we're doing we can tell them exactly how they might contribute and hopefully reap the benefits.
+	
+
+Looking Forward
+
+	This experiment will doubtless lead us to other experiments we should try. As we move forward we should keep a list of places we want to go from here. This is something we already tend to focus on, which is probably not the most efficient way of getting things done, but then we start to really get things done it's easy to forget all those ideas we had of what else to do. We should start a Google doc to store all these next steps and other ideas so that when one thing begins to feel stale we can start afresh on something fluidly. If we can get data from the search engines about the searches themselves it will be interesting to try to compare the data we got with the data they got. If we can try to look for ways to improve search or expose flaws in a search engine's methods through our findings that could be very interesting and relevant to them as well. There are lots of ideas floating around every time we discuss, it would be great if we had them later at the time when we most need them.
